@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Anagrafica</title>
+        <style>
+            :root{
+                font-family: system-ui,-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+                line-height: 1.4;
+                --gap: 14px; 
+            }
+
+            *,
+            *::before,
+            *::after{
+                box-sizing: border-box;
+            }
+
+            body{
+                max-width: 900px;
+                margin: 32px auto;
+                padding: 20px;
+                background: #fafafa;
+                color: #222;
+            }
+
+            h1{ font-size: 1.6rem; margin-bottom: 8px; }
+
+            form{
+                background: #fff;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+            }
+
+            .grid{
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: var(--gap);
+                align-items: start;
+            }
+
+            .grid > div{
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+            }
+
+            label{
+                display: block;
+                margin-bottom: 8px;
+                font-size: .95rem;
+                color: #333;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            textarea{
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid #d6d6db;
+                border-radius: 8px;
+                font-size: 1rem;
+                background: #fff;
+                transition: box-shadow .12s ease, border-color .12s ease;
+            }
+
+            input:focus, textarea:focus{
+                outline: none;
+                border-color: #7db7ff;
+                box-shadow: 0 4px 14px rgba(13,118,239,0.08);
+            }
+
+            .row, .grid > div{
+                margin-bottom: 6px;
+            }
+
+            .row{ display:flex; gap:12px; align-items:center; margin-top:12px; }
+            button{
+                background:#0b76ef;
+                color:#fff;
+                padding:10px 14px;
+                border-radius:8px;
+                border:0;
+                cursor:pointer;
+            }
+
+            .output{ margin-top:16px; padding:12px; border-radius:8px; background:#ffffff; border:1px solid #ececf2; }
+
+            @media (max-width:480px){
+                :root{ --gap: 10px; }
+                form{ padding:14px; }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Inserisci anagrafica utente</h1>
+
+        <form id="anagraficaForm" novalidate>
+            <div class="grid">
+                <div>
+                    <label for="nome">Nome</label>
+                    <input id="nome" name="nome" type="text" autocomplete="given-name" placeholder="Es. Mario" />
+                </div>
+
+                <div>
+                    <label for="cognome">Cognome</label>
+                    <input id="cognome" name="cognome" type="text" autocomplete="family-name" placeholder="Es. Rossi" />
+                </div>
+
+                <div style="grid-column:1 / -1">
+                    <label for="indirizzo">Indirizzo</label>
+                    <input id="indirizzo" name="indirizzo" type="text" placeholder="Via ..., civico" autocomplete="street-address" />
+                </div>
+
+                <div>
+                    <label for="citta">Città</label>
+                    <input id="citta" name="citta" type="text" autocomplete="address-level2" placeholder="Es. Milano" />
+                </div>
+
+                <div>
+                    <label for="cap">CAP</label>
+                    <input id="cap" name="cap" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Es. 20100" />
+                </div>
+
+                <div>
+                    <label for="dataNascita">Data di nascita</label>
+                    <input id="dataNascita" name="dataNascita" type="date" />
+                </div>
+
+                <div style="grid-column:1 / -1">
+                    <label for="note">Note (opzionale)</label>
+                    <textarea id="note" name="note" placeholder="Eventuali note"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:12px">
+                <button type="submit" id="salvaBtn">Salva anagrafica</button>
+            </div>
+        </form>
+
+        <div id="output" class="outputDiv" aria-live="polite">
+            <div class="small">Generazione: <span id="output" class="label-pill">—</span></div>
+        </div>
+
+        <script>
+            const button = document.getElementById("salvaBtn");
+            button.addEventListener("click", () => {
+
+                event.preventDefault();
+                
+                const data = document.getElementById("dataNascita").value;
+                const anno = data ? parseInt(data.slice(0,4), 10) : null;
+                const output = document.getElementById("output");
+
+                if(anno < 1901) {
+                    output.innerHTML = "non determinato";
+                } else if(anno <= 1927) {
+                    output.innerHTML = "Greatest Generation";
+                } else if(anno <= 1945) {
+                    output.innerHTML = "Generazione Silenziosa";
+                } else if(anno <= 1964) {
+                    output.innerHTML = "Baby Boomers";
+                } else if(anno <= 1980) {
+                    output.innerHTML = "Generazione X";
+                } else if(anno <= 1996) {
+                    output.innerHTML = "Millennials";
+                } else if(anno <= 2012) {
+                    output.innerHTML = "Generazione Z";
+                }  else {
+                    output.innerHTML = "Generazione Alpha";
+                }
+            })
+        </script>
+    </body>
+</html>
