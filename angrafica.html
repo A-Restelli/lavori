@@ -50,27 +50,27 @@
             <button type="button" id="salvaBtn">Salva anagrafica</button>
         </div>
 
-        <div id="outputNom" class="outputDiv" aria-live="polite">
+        <div id="outputNomDiv" class="outputDiv" aria-live="polite">
             <div class="small">Nome: <span id="outputNom" class="label-pill">—</span></div>
         </div>
 
-        <div id="outputCogn" class="outputDiv" aria-live="polite">
+        <div id="outputCognDiv" class="outputDiv" aria-live="polite">
             <div class="small">Cognome: <span id="outputCogn" class="label-pill">—</span></div>
         </div>
 
-        <div id="outputInd" class="outputDiv" aria-live="polite">
+        <div id="outputIndDiv" class="outputDiv" aria-live="polite">
             <div class="small">Indirizzo: <span id="outputInd" class="label-pill">—</span></div>
         </div>
 
-        <div id="outputCit" class="outputDiv" aria-live="polite">
+        <div id="outputCitDiv" class="outputDiv" aria-live="polite">
             <div class="small">Città: <span id="outputCit" class="label-pill">—</span></div>
         </div>
 
-        <div id="outputCAP" class="outputDiv" aria-live="polite">
+        <div id="outputCAPDiv" class="outputDiv" aria-live="polite">
             <div class="small">CAP: <span id="outputCAP" class="label-pill">—</span></div>
         </div>
 
-        <div id="outputGen" class="outputDiv" aria-live="polite">
+        <div id="outputGenDiv" class="outputDiv" aria-live="polite">
             <div class="small">Generazione: <span id="outputGen" class="label-pill">—</span></div>
         </div>
 
@@ -78,23 +78,23 @@
             const button = document.getElementById("salvaBtn");
             button.addEventListener("click", () => {
 
-                const outputNom = document.getElementById("outputNom").innerHTML;
-                const outputCogn = document.getElementById("outputCogn").innerHTML;
-                const outputInd = document.getElementById("outputInd").innerHTML;
-                const outputCit = document.getElementById("outputCit").innerHTML;
-                const outputCAP = document.getElementById("outputCAP").innerHTML;
-                const outputGen = document.getElementById("outputGen").innerHTML;
+                const outputNom = document.getElementById("outputNom");
+                const outputCogn = document.getElementById("outputCogn");
+                const outputInd = document.getElementById("outputInd");
+                const outputCit = document.getElementById("outputCit");
+                const outputCAP = document.getElementById("outputCAP");
+                const outputGen = document.getElementById("outputGen");
                 
                 const nome = document.getElementById("nome").value;
-                outputNom = nome;
+                outputNom.innerHTML = nome;
                 const cognome = document.getElementById("cognome").value;
-                outputCogn = cognome;
+                outputCogn.innerHTML = cognome;
                 const indirizzo = document.getElementById("indirizzo").value;
-                outputInd = indirizzo;
-                const citta = document.getElementById("città").value;
-                outputCit = citta;
+                outputInd.innerHTML = indirizzo;
+                const citta = document.getElementById("citta").value;
+                outputCit.innerHTML = citta;
                 const cap = document.getElementById("cap").value;
-                outputCAP = cap;
+                outputCAP.innerHTML = cap;
                 
                 const data = document.getElementById("dataNascita").value;
                 const anno = data ? parseInt(data.slice(0,4), 10) : null;
@@ -121,5 +121,6 @@
     </body>
 
 </html>
+
 
 
