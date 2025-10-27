@@ -99,28 +99,29 @@
                 const data = document.getElementById("dataNascita").value;
                 const anno = data ? parseInt(data.slice(0,4), 10) : null;
 
-                if(anno < 1901) {
-                    outputGen = "non determinato";
+                if(anno < 1901 || anno == null) {
+                    outputGen.innerHTML = "non determinato";
                 } else if(anno <= 1927) {
-                    outputGen = "Greatest Generation";
+                    outputGen.innerHTML = "Greatest Generation";
                 } else if(anno <= 1945) {
-                    outputGen = "Generazione Silenziosa";
+                    outputGen.innerHTML = "Generazione Silenziosa";
                 } else if(anno <= 1964) {
-                    outputGen = "Baby Boomers";
+                    outputGen.innerHTML = "Baby Boomers";
                 } else if(anno <= 1980) {
-                    outputGen = "Generazione X";
+                    outputGen.innerHTML = "Generazione X";
                 } else if(anno <= 1996) {
-                    outputGen = "Millennials";
+                    outputGen.innerHTML = "Millennials";
                 } else if(anno <= 2012) {
-                    outputGen = "Generazione Z";
+                    outputGen.innerHTML = "Generazione Z";
                 }  else {
-                    outputGen = "Generazione Alpha";
+                    outputGen.innerHTML = "Generazione Alpha";
                 }
             })
         </script>
     </body>
 
 </html>
+
 
 
 
