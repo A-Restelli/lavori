@@ -97,82 +97,116 @@
     </head>
     <body>
         <h1>Inserisci anagrafica utente</h1>
+        
+        <div class="grid">
+            <div>
+                <label for="nome">Nome</label>
+                <input id="nome" name="nome" type="text" autocomplete="given-name" placeholder="Es. Mario" />
+            </div>
 
-        <form id="anagraficaForm" novalidate>
-            <div class="grid">
-                <div>
-                    <label for="nome">Nome</label>
-                    <input id="nome" name="nome" type="text" autocomplete="given-name" placeholder="Es. Mario" />
-                </div>
+            <div>
+                <label for="cognome">Cognome</label>
+                <input id="cognome" name="cognome" type="text" autocomplete="family-name" placeholder="Es. Rossi" />
+            </div>
 
-                <div>
-                    <label for="cognome">Cognome</label>
-                    <input id="cognome" name="cognome" type="text" autocomplete="family-name" placeholder="Es. Rossi" />
-                </div>
+            <div style="grid-column:1 / -1">
+                <label for="indirizzo">Indirizzo</label>
+                <input id="indirizzo" name="indirizzo" type="text" placeholder="Via ..., civico" autocomplete="street-address" />
+            </div>
 
-                <div style="grid-column:1 / -1">
-                    <label for="indirizzo">Indirizzo</label>
-                    <input id="indirizzo" name="indirizzo" type="text" placeholder="Via ..., civico" autocomplete="street-address" />
-                </div>
+            <div>
+                <label for="citta">Città</label>
+                <input id="citta" name="citta" type="text" autocomplete="address-level2" placeholder="Es. Milano" />
+            </div>
 
-                <div>
-                    <label for="citta">Città</label>
-                    <input id="citta" name="citta" type="text" autocomplete="address-level2" placeholder="Es. Milano" />
-                </div>
+            <div>
+                <label for="cap">CAP</label>
+                <input id="cap" name="cap" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Es. 20100" />
+            </div>
 
-                <div>
-                    <label for="cap">CAP</label>
-                    <input id="cap" name="cap" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Es. 20100" />
-                </div>
+            <div>
+                <label for="dataNascita">Data di nascita</label>
+                <input id="dataNascita" name="dataNascita" type="date" />
+            </div>
 
-                <div>
-                    <label for="dataNascita">Data di nascita</label>
-                    <input id="dataNascita" name="dataNascita" type="date" />
-                </div>
-
-                <div style="grid-column:1 / -1">
+            <div style="grid-column:1 / -1">
                     <label for="note">Note (opzionale)</label>
                     <textarea id="note" name="note" placeholder="Eventuali note"></textarea>
-                </div>
             </div>
+        </div>
 
-            <div class="row" style="margin-top:12px">
-                <button type="submit" id="salvaBtn">Salva anagrafica</button>
-            </div>
-        </form>
+        <div class="row" style="margin-top:12px">
+            <button type="button" id="salvaBtn">Salva anagrafica</button>
+        </div>
 
-        <div id="output" class="outputDiv" aria-live="polite">
-            <div class="small">Generazione: <span id="output" class="label-pill">—</span></div>
+        <div id="outputNom" class="outputDiv" aria-live="polite">
+            <div class="small">Nome: <span id="outputNom" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputCogn" class="outputDiv" aria-live="polite">
+            <div class="small">Cognome: <span id="outputCogn" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputInd" class="outputDiv" aria-live="polite">
+            <div class="small">Indirizzo: <span id="outputInd" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputCit" class="outputDiv" aria-live="polite">
+            <div class="small">Città: <span id="outputCit" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputCAP" class="outputDiv" aria-live="polite">
+            <div class="small">CAP: <span id="outputCAP" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputGen" class="outputDiv" aria-live="polite">
+            <div class="small">Generazione: <span id="outputGen" class="label-pill">—</span></div>
         </div>
 
         <script>
             const button = document.getElementById("salvaBtn");
             button.addEventListener("click", () => {
 
-                event.preventDefault();
+                const outputNom = document.getElementById("outputNom").innerHTML;
+                const outputCogn = document.getElementById("outputCogn").innerHTML;
+                const outputInd = document.getElementById("outputInd").innerHTML;
+                const outputCit = document.getElementById("outputCit").innerHTML;
+                const outputCAP = document.getElementById("outputCAP").innerHTML;
+                const outputGen = document.getElementById("outputGen").innerHTML;
+                
+                const nome = document.getElementById("nome").value;
+                outputNom = nome;
+                const cognome = document.getElementById("cognome").value;
+                outputCogn = cognome;
+                const indirizzo = document.getElementById("indirizzo").value;
+                outputInd = indirizzo;
+                const citta = document.getElementById("città").value;
+                outputCit = citta;
+                const cap = document.getElementById("cap").value;
+                outputCAP = cap;
                 
                 const data = document.getElementById("dataNascita").value;
                 const anno = data ? parseInt(data.slice(0,4), 10) : null;
-                const output = document.getElementById("output");
 
                 if(anno < 1901) {
-                    output.innerHTML = "non determinato";
+                    outputGen = "non determinato";
                 } else if(anno <= 1927) {
-                    output.innerHTML = "Greatest Generation";
+                    outputGen = "Greatest Generation";
                 } else if(anno <= 1945) {
-                    output.innerHTML = "Generazione Silenziosa";
+                    outputGen = "Generazione Silenziosa";
                 } else if(anno <= 1964) {
-                    output.innerHTML = "Baby Boomers";
+                    outputGen = "Baby Boomers";
                 } else if(anno <= 1980) {
-                    output.innerHTML = "Generazione X";
+                    outputGen = "Generazione X";
                 } else if(anno <= 1996) {
-                    output.innerHTML = "Millennials";
+                    outputGen = "Millennials";
                 } else if(anno <= 2012) {
-                    output.innerHTML = "Generazione Z";
+                    outputGen = "Generazione Z";
                 }  else {
-                    output.innerHTML = "Generazione Alpha";
+                    outputGen = "Generazione Alpha";
                 }
             })
         </script>
     </body>
+
 </html>
