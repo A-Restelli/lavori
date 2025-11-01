@@ -12,16 +12,14 @@ for(let i = 0; i < 100; i++) {
     max = v[0];
   } else if(max < v[i]) {
     max = v[i];
-  } else if(min > v[i) {
+  } else if(min > v[i]) {
     min = v[i];
   }
 }
 
 let v50 = [];
-let c = 0;
 for(let i = 0; i < 100; i++) {
   if(v[i] > 50) {
-    v50[c] = v[i];
-    c++;
+    v50.push(v[i])
   }
 }
