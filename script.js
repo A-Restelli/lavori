@@ -15,7 +15,7 @@ for(let i = 0; i < 100; i++) {
   } else if(min > v[i]) {
     min = v[i];
   }
-  outVett.innerHTML = outVett.textContent + v[i] + " ";
+  outVett.innerHTML = outVett.innerHTML + v[i] + " ";
 }
 
 outMinMax.innerHTML = "Minore: " + min + " Maggiore: " + max;
@@ -28,5 +28,5 @@ for(let i = 0; i < 100; i++) {
 }
 
 for(let i = 0; i < v50.length; i++) {
-  outVett50.innerHTML = outVett50.textContent + v50[i] + " ";
+  outVett50.innerHTML = outVett50.innerHTML + v50[i] + " ";
 }
