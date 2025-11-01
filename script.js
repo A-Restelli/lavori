@@ -1,6 +1,6 @@
 const outMinMax = getElementById("minMax");
-const outVett = getElementById("Vett");
-const outVett50 = getElementById("Vett50");
+const outVett = getElementById("vett");
+const outVett50 = getElementById("vett50");
 let min = 0;
 let max = 0;
 
@@ -15,11 +15,18 @@ for(let i = 0; i < 100; i++) {
   } else if(min > v[i]) {
     min = v[i];
   }
+  outVett.innerHTML = outVett.textContent + v[i] + " ";
 }
+
+outMinMax.innerHTML = "Minore: " + min + " Maggiore: " + max;
 
 let v50 = [];
 for(let i = 0; i < 100; i++) {
   if(v[i] > 50) {
     v50.push(v[i])
   }
+}
+
+for(let i = 0; i < v50.length; i++) {
+  outVett50.innerHTML = outVett50.textContent + v50[i] + " ";
 }
