@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <link rel = "stylesheet" href = "style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Array</h1>
-        
-    </div>
-    <script src = "script.js"></script>
+
+  <h2>Riga di celle da un array</h2>
+
+  <table id="tabella">
+    <tr id="riga"></tr>
+  </table>
+
+  <script>
+    // Il nostro array
+    const elementi = ["Mela", "Banana", "Ciliegia", "Kiwi", "Pera", "Mango"];
+
+    // Recuperiamo la riga della tabella
+    const riga = document.getElementById("riga");
+
+    // Creiamo una cella <td> per ogni elemento
+    elementi.forEach(item => {
+      const cella = document.createElement("td");
+      cella.textContent = item;
+      riga.appendChild(cella);
+    });
+  </script>
+
 </body>
 </html>
