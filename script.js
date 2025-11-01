@@ -1,6 +1,6 @@
-const outMinMax = getElementById("minMax");
-const outVett = getElementById("vett");
-const outVett50 = getElementById("vett50");
+const outMinMax = document.getElementById("minMax");
+const outVett = document.getElementById("vett");
+const outVett50 = document.getElementById("vett50");
 let min = 0;
 let max = 0;
 
