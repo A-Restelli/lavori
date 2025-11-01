@@ -7,27 +7,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <h2>Vettore completo</h2>
+  <div id="vett" class="grid"></div>
 
-  <h2>Riga di celle da un array</h2>
+  <h2>Minimo e massimo</h2>
+  <div id="minMax"></div>
 
-  <table id="tabella">
-    <tr id="riga"></tr>
-  </table>
-
-  <script>
-    // Il nostro array
-    const elementi = ["Mela", "Banana", "Ciliegia", "Kiwi", "Pera", "Mango"];
-
-    // Recuperiamo la riga della tabella
-    const riga = document.getElementById("riga");
-
-    // Creiamo una cella <td> per ogni elemento
-    elementi.forEach(item => {
-      const cella = document.createElement("td");
-      cella.textContent = item;
-      riga.appendChild(cella);
-    });
-  </script>
-
+  <h2>Valori maggiori di 50</h2>
+  <div id="vett50" class="grid"></div>
+  
 </body>
 </html>
