@@ -15,7 +15,8 @@ for(let i = 0; i < 100; i++) {
   } else if(min > v[i]) {
     min = v[i];
   }
-  outVett.innerHTML = outVett.innerHTML + v[i] + " ";
+  const td = document.getElementById('c' + i);
+  td.innerHTML = v[i];
 }
 
 outMinMax.innerHTML = "Minore: " + min + " Maggiore: " + max;
