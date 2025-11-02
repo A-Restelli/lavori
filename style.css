@@ -118,3 +118,24 @@
             background-color: #f0f0f0;
             text-decoration: underline;
         }
+    
+     table {
+      border-collapse: collapse;
+      margin: 20px;
+      width: auto;
+    }
+
+    td {
+      border: 1px solid #ccc;
+      padding: 15px 25px;
+      text-align: center;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      transition: background-color 0.3s;
+    }
+
+    td:hover {
+      background-color: #dfe8ff;
+    }
+ 
+h2{ font-size: 1.6rem; margin-bottom: 8px; }
