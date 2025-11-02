@@ -22,12 +22,18 @@ for(let i = 0; i < 100; i++) {
 outMinMax.innerHTML = "Minore: " + min + " Maggiore: " + max;
 
 let v50 = [];
+let c = 0;
 for(let i = 0; i < 100; i++) {
   if(v[i] > 50) {
     v50.push(v[i])
+    const td = document.getElementById('v' + c);
+    td.innerHTML = v50[c];
+    c++;
   }
 }
 
-for(let i = 0; i < v50.length; i++) {
-  outVett50.innerHTML = outVett50.innerHTML + v50[i] + " ";
+
+for(c; c < 100; c++) {
+  const td = document.getElementById('v' + c);
+  td.innerHTML = '-';
 }
