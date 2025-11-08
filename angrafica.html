@@ -201,7 +201,7 @@
                 const materie = document.getElementById("materie").options;
                 let selezione = []
                 for(let i = 0; i < materie.length; i++) {
-                    if(materie[i].selected && selezione.length <= 3) {
+                    if(materie[i].selected && selezione.length < 3) {
                         selezione.push(materie[i].value);
                     }
                 }
@@ -211,3 +211,4 @@
     </body>
 
 </html>
+
