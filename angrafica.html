@@ -205,7 +205,11 @@
                       selezionati.push(mezzi[i].value);
                     }
                 }
-                outputMezzi.innerHTML = selezionati;
+                if(selezionati.length == 0) {
+                    outputMezzi.innerHTML = "Nessuno";
+                } else{
+                    outputMezzi.innerHTML = selezionati;
+                }
 
                 const materie = document.getElementById("materie").options;
                 let selezione = []
@@ -221,6 +225,7 @@
     </body>
 
 </html>
+
 
 
 
