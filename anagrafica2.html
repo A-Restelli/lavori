@@ -1,0 +1,46 @@
+
+            const button = document.getElementById("salvaBtn");
+            button.addEventListener("click", () => {
+
+                const outputNom = document.getElementById("outputNom");
+                const outputCogn = document.getElementById("outputCogn");
+                const outputInd = document.getElementById("outputInd");
+                const outputCit = document.getElementById("outputCit");
+                const outputCAP = document.getElementById("outputCAP");
+                const outputGen = document.getElementById("outputGen");
+                const outputSesso = document.getElementById("outputSesso");
+                const outputProv = document.getElementById("outputProv");
+                const outputMezzi = document.getElementById("outputMezzi");
+                const outputMaterie = document.getElementById("outputMaterie");
+
+                const nome = document.getElementById("nome").value;
+                outputNom.innerHTML = nome;
+                const cognome = document.getElementById("cognome").value;
+                outputCogn.innerHTML = cognome;
+                const indirizzo = document.getElementById("indirizzo").value;
+                outputInd.innerHTML = indirizzo;
+                const citta = document.getElementById("citta").value;
+                outputCit.innerHTML = citta;
+                const cap = document.getElementById("cap").value;
+                outputCAP.innerHTML = cap;
+
+                const data = document.getElementById("dataNascita").value;
+                const anno = data ? parseInt(data.slice(0,4), 10) : null;
+
+                if(anno < 1901 || anno == null) {
+                    outputGen.innerHTML = "non determinato";
+                } else if(anno <= 1927) {
+                    outputGen.innerHTML = "Greatest Generation";
+                } else if(anno <= 1945) {
+                    outputGen.innerHTML = "Generazione Silenziosa";
+                } else if(anno <= 1964) {
+                    outputGen.innerHTML = "Baby Boomers";
+                } else if(anno <= 1980) {
+                    outputGen.innerHTML = "Generazione X";
+                } else if(anno <= 1996) {
+                    outputGen.innerHTML = "Millennials";
+                } else if(anno <= 2012) {
+                    outputGen.innerHTML = "Generazione Z";
+                }  else {
+                    outputGen.innerHTML = "Generazione Alpha";
+                }
