@@ -1,4 +1,146 @@
+<!doctype html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Anagrafica</title>
+        <link rel = "stylesheet" href = "style.css">
+    </head>
+    <body>
+        <h1>Inserisci anagrafica utente</h1>
+        
+        <div class="grid">
+            <div>
+                <label for="nome">Nome</label>
+                <input id="nome" name="nome" type="text" autocomplete="given-name" placeholder="Es. Mario" />
+            </div>
 
+            <div>
+                <label for="cognome">Cognome</label>
+                <input id="cognome" name="cognome" type="text" autocomplete="family-name" placeholder="Es. Rossi" />
+            </div>
+
+            <div style="grid-column:1 / -1">
+                <label for="indirizzo">Indirizzo</label>
+                <input id="indirizzo" name="indirizzo" type="text" placeholder="Via ..., civico" autocomplete="street-address" />
+            </div>
+
+            <div>
+                <label for="citta">Città</label>
+                <input id="citta" name="citta" type="text" autocomplete="address-level2" placeholder="Es. Milano" />
+            </div>
+
+            <div>
+                <label for="cap">CAP</label>
+                <input id="cap" name="cap" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Es. 20100" />
+            </div>
+
+            <div>
+                <label for="dataNascita">Data di nascita</label>
+                <input id="dataNascita" name="dataNascita" type="date" />
+            </div>
+
+            <div>
+                <legend>Sesso</legend>
+                <label><input type="radio" name="sesso" value="M"> M</label>
+                <label><input type="radio" name="sesso" value="F"> F</label>
+                <label><input type="radio" name="sesso" value="Altro"> Altro</label>
+            </div>
+
+            <div>
+                <label for="provincia">Provincia</label>
+                <select id="provincia" name="provincia">
+                    <option value="">-- Seleziona --</option>
+                    <option value="MI">Milano</option>
+                    <option value="RM">Roma</option>
+                    <option value="NA">Napoli</option>
+                    <option value="TO">Torino</option>
+                    <option value="PA">Palermo</option>
+                    <option value="BO">Bologna</option>
+                    <option value="FI">Firenze</option>
+                    <option value="VE">Venezia</option>
+                    <option value="GE">Genova</option>
+                    <option value="BA">Bari</option>
+                </select>
+            </div>
+
+            <div style="grid-column:1 / -1">
+                <legend>Mezzi di locomozione posseduti in famiglia</legend>
+                <label><input type="checkbox" name="mezzi" value="Auto"> Auto</label>
+                <label><input type="checkbox" name="mezzi" value="Moto"> Moto</label>
+                <label><input type="checkbox" name="mezzi" value="Bici"> Bici</label>
+                <label><input type="checkbox" name="mezzi" value="Aereo"> Aereo</label>
+                <label><input type="checkbox" name="mezzi" value="Yacht"> Yacht</label>
+                <label><input type="checkbox" name="mezzi" value="Camper"> Camper</label>
+                <label><input type="checkbox" name="mezzi" value="Monopattino"> Monopattino</label>
+            </div>
+
+            <div style="grid-column:1 / -1">
+                <label for="materie">Materie di insegnamento preferite (max 3)</label>
+                <select id="materie" name="materie" multiple size="5">
+                    <option value="Matematica">Matematica</option>
+                    <option value="Fisica">Fisica</option>
+                    <option value="Chimica">Chimica</option>
+                    <option value="Letteratura">Letteratura</option>
+                    <option value="Storia">Storia</option>
+                    <option value="Informatica">Informatica</option>
+                    <option value="Arte">Arte</option>
+                    <option value="Educazione Fisica">Educazione Fisica</option>
+                    <option value="Lingue Straniere">Lingue Straniere</option>
+                </select>
+            </div>
+
+            <div style="grid-column:1 / -1">
+                    <label for="note">Note (opzionale)</label>
+                    <textarea id="note" name="note" placeholder="Eventuali note"></textarea>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+            <button type="button" id="salvaBtn">Salva anagrafica</button>
+        </div>
+
+        <div id="outputNomDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Nome: <span id="outputNom" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputCognDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Cognome: <span id="outputCogn" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputIndDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Indirizzo: <span id="outputInd" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputCitDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Città: <span id="outputCit" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputCAPDiv" class="outputDiv" aria-live="polite">
+            <div class="small">CAP: <span id="outputCAP" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputGenDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Generazione: <span id="outputGen" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputSDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Sesso: <span id="outputSesso" class="label-pill">—</span></div>
+        </div>
+        
+        <div id="outputProvDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Provincia: <span id="outputProv" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputMezziDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Mezzi: <span id="outputMezzi" class="label-pill">—</span></div>
+        </div>
+
+        <div id="outputMaterieDiv" class="outputDiv" aria-live="polite">
+            <div class="small">Materie: <span id="outputMaterie" class="label-pill">—</span></div>
+        </div>
+
+        <script>
             const button = document.getElementById("salvaBtn");
             button.addEventListener("click", () => {
 
@@ -12,7 +154,7 @@
                 const outputProv = document.getElementById("outputProv");
                 const outputMezzi = document.getElementById("outputMezzi");
                 const outputMaterie = document.getElementById("outputMaterie");
-
+                
                 const nome = document.getElementById("nome").value;
                 outputNom.innerHTML = nome;
                 const cognome = document.getElementById("cognome").value;
@@ -23,11 +165,11 @@
                 outputCit.innerHTML = citta;
                 const cap = document.getElementById("cap").value;
                 outputCAP.innerHTML = cap;
-
+                
                 const data = document.getElementById("dataNascita").value;
                 const anno = data ? parseInt(data.slice(0,4), 10) : null;
 
-                if(anno < 1901 || anno == null) {
+                if(anno == null || anno < 1901) {
                     outputGen.innerHTML = "non determinato";
                 } else if(anno <= 1927) {
                     outputGen.innerHTML = "Greatest Generation";
@@ -44,3 +186,46 @@
                 }  else {
                     outputGen.innerHTML = "Generazione Alpha";
                 }
+                
+                const sesso = document.getElementsByName("sesso");
+                for(let i = 0; i < sesso.length; i++) {
+                    if(sesso[i].checked) {
+                        outputSesso.innerHTML = sesso[i].value;
+                    }
+                }
+
+                let p = document.getElementById("provincia");
+                let provincia = p.options[p.selectedIndex].text;
+                outputProv.innerHTML = provincia;
+
+                const mezzi = document.getElementsByName("mezzi");
+                let selezionati = [];
+                for (let i = 0; i < mezzi.length; i++) {
+                  if (mezzi[i].checked) {
+                      selezionati.push(mezzi[i].value);
+                    }
+                }
+                if(selezionati.length == 0) {
+                    outputMezzi.innerHTML = "Nessuno";
+                } else{
+                    outputMezzi.innerHTML = selezionati;
+                }
+
+                const materie = document.getElementById("materie").options;
+                let selezione = []
+                for(let i = 0; i < materie.length; i++) {
+                    if(materie[i].selected) {
+                        selezione.push(materie[i].value);
+                    }
+                    if(selezione.length == 3) {break;}
+                }
+                outputMaterie.innerHTML = selezione;
+            })
+        </script>
+    </body>
+
+</html>
+
+
+
+
