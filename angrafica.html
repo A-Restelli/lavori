@@ -201,9 +201,10 @@
                 const materie = document.getElementById("materie").options;
                 let selezione = []
                 for(let i = 0; i < materie.length; i++) {
-                    if(materie[i].selected && selezione.length < 3) {
+                    if(materie[i].selected) {
                         selezione.push(materie[i].value);
                     }
+                    if(selezione.length == 3) {break;}
                 }
                 outputMaterie.innerHTML = selezione;
             })
@@ -211,4 +212,5 @@
     </body>
 
 </html>
+
 
