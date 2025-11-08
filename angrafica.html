@@ -169,7 +169,7 @@
                 const data = document.getElementById("dataNascita").value;
                 const anno = data ? parseInt(data.slice(0,4), 10) : null;
 
-                if(anno < 1901 || anno == null) {
+                if(anno == null || anno < 1901) {
                     outputGen.innerHTML = "non determinato";
                 } else if(anno <= 1927) {
                     outputGen.innerHTML = "Greatest Generation";
@@ -187,21 +187,22 @@
                     outputGen.innerHTML = "Generazione Alpha";
                 }
                 
-                const sesso = document.getELementsByName("sesso");
+                const sesso = document.getElementsByName("sesso");
                 for(let i = 0; i < sesso.length; i++) {
                     if(sesso[i].checked) {
-                        outputSesso.innerHTML = sesso[i];
+                        outputSesso.innerHTML = sesso[i].value;
                     }
                 }
 
                 let p = document.getElementById("provincia");
-                let provincia = p.options[p.selectedIndex].text);
+                let provincia = p.options[p.selectedIndex].text;
                 outputProv.innerHTML = provincia;
             })
         </script>
     </body>
 
 </html>
+
 
 
 
