@@ -198,6 +198,15 @@
                 let provincia = p.options[p.selectedIndex].text;
                 outputProv.innerHTML = provincia;
 
+                const mezzi = document.getElementsByName("mezzi");
+                let selezionati = [];
+                for (let i = 0; i < mezzi.length; i++) {
+                  if (mezzi[i].checked) {
+                      selezionati.push(mezzi[i].value);
+                    }
+                }
+                outputMezzi.innerHTML = selezionati
+
                 const materie = document.getElementById("materie").options;
                 let selezione = []
                 for(let i = 0; i < materie.length; i++) {
@@ -212,5 +221,6 @@
     </body>
 
 </html>
+
 
 
