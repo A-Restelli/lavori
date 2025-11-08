@@ -197,14 +197,17 @@
                 let p = document.getElementById("provincia");
                 let provincia = p.options[p.selectedIndex].text;
                 outputProv.innerHTML = provincia;
+
+                const materie = document.getElementById("materie").options;
+                let selezione = []
+                for(let i = 0; i < materie.length; i++) {
+                    if(materie[i].selected && selezione.length <= 3) {
+                        selezione.push(materie[i].value);
+                    }
+                }
+                outputMaterie.innerHTML = selezione;
             })
         </script>
     </body>
 
 </html>
-
-
-
-
-
-
