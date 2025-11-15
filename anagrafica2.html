@@ -97,7 +97,7 @@
         </div>
 
         <div class="row" style="margin-top:12px">
-            <button type="button" id="salvaBtn">Salva anagrafica</button>
+            <button type="button" id="salvaBtn" onclick="stampa()">Salva anagrafica</button>
         </div>
 
         <div id="outputNomDiv" class="outputDiv" aria-live="polite">
@@ -141,9 +141,7 @@
         </div>
 
         <script>
-            const button = document.getElementById("salvaBtn");
-            button.addEventListener("click", () => {
-
+            function stampa() {
                 const outputNom = document.getElementById("outputNom");
                 const outputCogn = document.getElementById("outputCogn");
                 const outputInd = document.getElementById("outputInd");
@@ -220,7 +218,7 @@
                     if(selezione.length == 3) {break;}
                 }
                 outputMaterie.innerHTML = selezione;
-            })
+            }
         </script>
     </body>
 
