@@ -16,22 +16,27 @@
     ctx.stroke();
     ctx.moveTo(100, 10);
 
-    var outerR = circleR;
+    var outerR = 40;
     var innerR = outerR * Math.sin(Math.PI/10) / Math.sin(3*Math.PI/10);
 
     ctx.beginPath();
     var rot = -Math.PI/2;
     for (var i = 0; i < 10; i++) {
       var ang = rot + i * (Math.PI * 2 / 10);
-      var r = (i % 2 === 0) ? outerR : innerR;
-      var x = cx + Math.cos(ang) * r;
-      var y = cy + Math.sin(ang) * r;
+      var r;
+      if (i % 2 === 0) {
+        r = outerR;
+      } else {
+        r = innerR;
+      }
+      var x = 100 + Math.cos(ang) * r;
+      var y = 50 + Math.sin(ang) * r;
       if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
     ctx.closePath();
     ctx.fillStyle = "#ffd700"; 
     ctx.fill();
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 0.5;
     ctx.strokeStyle = "#b8860b";
     ctx.stroke();
   </script> 
