@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cerchioStella</title>
+  </head>
+  <body>
+
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML canvas tag.</canvas>
+
+  <script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.beginPath();
+    ctx.arc(100,50,40,0,2*Math.PI);
+    ctx.stroke();
+    ctx.moveTo(100, 10);
+
+    var outerR = circleR;
+    var innerR = outerR * Math.sin(Math.PI/10) / Math.sin(3*Math.PI/10);
+
+    ctx.beginPath();
+    var rot = -Math.PI/2;
+    for (var i = 0; i < 10; i++) {
+      var ang = rot + i * (Math.PI * 2 / 10);
+      var r = (i % 2 === 0) ? outerR : innerR;
+      var x = cx + Math.cos(ang) * r;
+      var y = cy + Math.sin(ang) * r;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = "#ffd700"; 
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#b8860b";
+    ctx.stroke();
+  </script> 
+
+  </body>
+</html>
