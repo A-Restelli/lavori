@@ -2,6 +2,75 @@
 <html>
     <head>
         <title>titolo</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                background: #f2f4f8;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+ 
+            form {
+                background: #ffffff;
+                padding: 25px 30px;
+                border-radius: 10px;
+                width: 320px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            label {
+                display: block;
+                margin-top: 15px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                padding: 8px 10px;
+                margin-top: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                transition: border 0.3s, box-shadow 0.3s;
+            }
+
+            input[type="text"]:focus,
+            input[type="password"]:focus {
+                border-color: #4a90e2;
+                outline: none;
+                box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+            }
+
+            input[type="button"] {
+                width: 100%;
+                margin-top: 25px;
+                padding: 10px;
+                background: #4a90e2;
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.3s, transform 0.2s;
+            }
+
+            input[type="button"]:hover {
+                background: #357abd;
+                transform: translateY(-2px);
+            }
+
+            input[type="button"]:active {
+                transform: translateY(0);
+            }
+</style>
     </head>
     <body>
         <form method="post" action="#" name="invio" onsubmit="return valida()">
@@ -21,7 +90,7 @@
           <input type="password" name="conferma">
 
           <br>
-          <input type="button" value="Invia" onclick="if(valida()) { alert('Dati validi'); }">
+          <input type="button" value="Invia" onclick="if(valida()) { alert('Dati validi (simulato)'); }">
         </form>
         <script>
             function valida() {
