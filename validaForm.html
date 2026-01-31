@@ -1,0 +1,90 @@
+<!DOCTYPE HTML> 
+<html>
+    <head>
+        <title>titolo</title>
+    </head>
+    <body>
+        <form method="post" action="#" name="invio" onsubmit="return valida()">
+          <label for="nome">Nome</label>
+          <input type="text" name="nome">
+
+          <label for="telefono">Telefono</label>
+          <input type="text" name="telefono">
+
+          <label for="email">Email:</label>
+          <input type="text" name="email">
+
+          <label for="password">Password</label>
+          <input type="password" name="password"> 
+
+          <label for="conferma">Conferma password</label>
+          <input type="password" name="conferma">
+
+          <br>
+          <input type="button" value="Invia" onclick="if(valida()) { alert('Dati validi'); }">
+        </form>
+        <script>
+            function valida() {
+                const nome = document.invio.nome.value;
+                const password = document.invio.password.value;
+                const conferma = document.invio.conferma.value;
+                const telefono = document.invio.telefono.value;
+                const email = document.invio.email.value;
+
+                const email_reg_exp = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+\.)+([a-zA-Z0-9]{2,})+$/;
+
+
+                if (!nome) {
+                    alert("Devi inserire un nome");
+                    document.invio.nome.focus();
+                    return false;
+                }
+                if (nome[0] !== nome[0].toUpperCase()) {
+                    alert("Il nome deve iniziare con una lettera maiuscola");
+                    document.invio.nome.focus();
+                    return false;
+                }
+
+                if (isNaN(telefono) || !telefono) {
+                    alert("Devi inserire il telefono, attenzione deve essere numerico!");
+                    document.invio.telefono.value = "";
+                    document.invio.telefono.focus();
+                    return false;
+                }
+
+                if (!email_reg_exp.test(email) || !email) {
+                    alert("Devi inserire un indirizzo mail corretto");
+                    document.invio.email.focus();
+                    return false;
+                }
+
+
+                if (password.length < 6 || !password) {
+                    alert("Scegli una password, minimo 6 caratteri");
+                    document.invio.password.focus();
+                    return false;
+                }
+                const specialCharRegExp = /[@#?$\-_]/;
+                if (!specialCharRegExp.test(password)) {
+                    alert("La password deve contenere almeno un carattere speciale tra @, #, ?, $, -, _");
+                    document.invio.password.focus();
+                    return false;
+                }
+
+                if (!conferma) {
+                    alert("Devi confermare la password");
+                    document.invio.conferma.focus();
+                    return false;
+                }
+
+                if (password !== conferma) {
+                    alert("La conferma password non corrisponde");
+                    document.invio.conferma.value = "";
+                    document.invio.conferma.focus();
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </body>
+</html>
