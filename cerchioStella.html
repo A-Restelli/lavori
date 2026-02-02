@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stella nel cerchio</title>
+  <meta charset="utf-8">
+  <title>Stella nel cerchio</title>
 </head>
 <body>
-
 <canvas id="myCanvas" width="400" height="400"></canvas>
 
 <script>
-    
-    let canvas = document.getElementById("myCanvas");
-    let ctx = canvas.getContext("2d");
+  const canvas = document.getElementById("myCanvas");
+  const ctx = canvas.getContext("2d");
 
-    ctx.beginPath();
-    ctx.arc(200, 200, 150, 0, 2 * Math.PI);
-    ctx.fillStyle = "red"; 
-    ctx.fill();
-    ctx.strokeStyle = "orange";  
-    ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 200, 150, 0, 2 * Math.PI);
+  ctx.fillStyle = "red";
+  ctx.fill();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = "orange";
+  ctx.stroke();
 
-    ctx.beginPath();
+  ctx.beginPath();
+  ctx.moveTo(200.0,  50.0);
+  ctx.lineTo(233.7, 153.6);
+  ctx.lineTo(342.7, 153.6);
+  ctx.lineTo(254.5, 217.7);
+  ctx.lineTo(288.2, 321.4);
+  ctx.lineTo(200.0, 257.3);
+  ctx.lineTo(111.8, 321.4);
+  ctx.lineTo(145.5, 217.7);
+  ctx.lineTo(57.3,  153.6);
+  ctx.lineTo(166.3, 153.6);
+  ctx.closePath();
 
-    ctx.moveTo(200.0,  50.0)  
-    ctx.moveTo(233.7, 153.6)  
-    ctx.moveTo(342.7, 153.6)  
-    ctx.moveTo(254.5, 217.7)   
-    ctx.moveTo(288.2, 321.4)  
-    ctx.moveTo(200.0, 257.3) 
-    ctx.moveTo(111.8, 321.4)  
-    ctx.moveTo(145.5, 217.7)  
-    ctx.moveTo(57.3,  153.6)  
-    ctx.moveTo(166.3, 153.6)
-    ctx.closePath();
-
-    ctx.fillStyle ="yellow";
-    ctx.fill();
-
-    ctx.strokeStyle = "yellow";
-    ctx.stroke();
-
+  ctx.fillStyle = "yellow";
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "goldenrod";
+  ctx.stroke();
 </script>
-
 </body>
 </html>
