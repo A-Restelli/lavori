@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabella persone</title>
+</head>
+<body>
+
+<h2>Persone ricevute</h2>
+<table id="tabella1" border="1"></table>
+
+<script>
+    let p = JSON.parse(localStorage.getItem("persone"));
+
+    let s = "";
+
+    s += "<tr>";
+    s += "<th>Nome</th>";
+    s += "<th>Cognome</th>";
+    s += "<th>Città</th>";
+    s += "<th>Provincia</th>";
+    s += "<th>Sesso</th>";
+    s += "<th>Generazione</th>";
+    s += "<th>Mezzi</th>";
+    s += "<th>Materie</th>";
+    s += "</tr>";
+
+    for (let i = 0; i < p.length; i++) {
+        s += "<tr>";
+        s += "<td>" + p[i].nome + "</td>";
+        s += "<td>" + p[i].cognome + "</td>";
+        s += "<td>" + p[i].citta + "</td>";
+        s += "<td>" + p[i].provincia + "</td>";
+        s += "<td>" + p[i].sesso + "</td>";
+        s += "<td>" + p[i].generazione + "</td>";
+        s += "<td>" + p[i].mezzi + "</td>";
+        s += "<td>" + p[i].materie + "</td>";
+        s += "</tr>";
+    }
+
+    document.getElementById("tabella1").innerHTML = s;
+</script>
+
+</body>
+</html>
