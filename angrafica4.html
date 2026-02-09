@@ -176,7 +176,7 @@
                     indirizzo : document.getElementById("indirizzo").value,
                     citta : document.getElementById("citta").value,
                     cap : document.getElementById("cap").value,
-                    anno : elaboraGenerazione((document.getElementById("dataNascita").value.slice(0,4))),
+                    anno : elaboraGenerazione(parseInt(document.getElementById("dataNascita").value.slice(0,4)), 10),
                     sesso : elaboraSesso(document.getElementsByName("sesso")),
                     provincia : elaboraProvincia(document.getElementById("provincia")),
                     mezzi : elaboraMezzi(document.getElementsByName("mezzi")),
