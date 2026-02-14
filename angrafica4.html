@@ -183,8 +183,6 @@
                     materie : elaboraMaterie(document.getElementById("materie").options)
                 };
 
-                console.log('dataNascita.value =', document.getElementById('dataNascita').value);
-
                 persone.push(persona);
                 localStorage.setItem("persone", JSON.stringify(persone));
                 document.querySelector("form").reset();
