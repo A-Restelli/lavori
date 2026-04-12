@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Negozio Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --nero:    #111111;
+            --g1:      #333333;
+            --g2:      #666666;
+            --g3:      #999999;
+            --g4:      #cccccc;
+            --g5:      #f0f0f0;
+            --bianco:  #ffffff;
+            --accent:  #c0392b;
+            --verde:   #27ae60;
+            --r:       8px;
+            --ombra:   0 2px 12px rgba(0,0,0,.08);
+        }
+
+        body {
+            font-family: 'DM Sans', Arial, sans-serif;
+            background: var(--g5);
+            color: var(--g1);
+        }
+        header {
+            background: var(--nero);
+            color: var(--bianco);
+            padding: 0 40px;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            letter-spacing: .5px;
+        }
+
+        .logo span { color: #e74c3c; }
+
+        .nav-carrello {
+            font-size: .82rem;
+            color: var(--g4);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            border-bottom: 1px solid transparent;
+            transition: color .2s, border-color .2s;
+        }
+        .nav-carrello:hover { color: var(--bianco); border-color: var(--bianco); }
+
+        #badge {
+            position: absolute;
+            top: -9px;
+            right: -16px;
+            background: #e74c3c;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: .68rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 36px 22px 60px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .col-sx { min-width: 0; }
+        .col-dx { position: sticky; top: 90px; }
+
+        .card {
+            background: var(--bianco);
+            border-radius: var(--r);
+            box-shadow: var(--ombra);
+            padding: 26px 28px;
+            margin-bottom: 26px;
+        }
+
+        .card-h {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            color: var(--nero);
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--g5);
+        }
+
+        .upload-box {
+            border: 2px dashed var(--g4);
+            border-radius: var(--r);
+            padding: 26px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+        }
+        .upload-box:hover { border-color: var(--g3); background: var(--g5); }
+
+        .upload-box label { cursor: pointer; display: block; }
+
+        .upload-ico {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            background: var(--g5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-ico svg { width: 20px; height: 20px; stroke: var(--g3); }
+
+        .upload-t1 { font-size: .9rem; color: var(--g2); margin-bottom: 4px; }
+        .upload-t2 { font-size: .75rem; color: var(--g4); }
+
+        #fileInput { display: none; }
+
+        #nomeFile { margin-top: 10px; font-size: .78rem; color: var(--verde); font-weight: 500; text-align: center; }
+
+        .filtri { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
+
+        .f-btn {
+            padding: 5px 15px;
+            border: 1px solid var(--g4);
+            border-radius: 20px;
+            background: var(--bianco);
+            font-size: .8rem;
+            font-family: 'DM Sans', Arial, sans-serif;
+            color: var(--g2);
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .f-btn:hover  { border-color: var(--nero); color: var(--nero); }
+        .f-btn.on     { background: var(--nero); color: var(--bianco); border-color: var(--nero); }
+
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+            gap: 14px;
+        }
+
+        .prod {
+            background: var(--bianco);
+            border-radius: var(--r);
+            box-shadow: var(--ombra);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .prod:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.11); }
+
+        .prod-img {
+            height: 110px;
+            background: var(--g5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .prod-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--g4);
+            user-select: none;
+            line-height: 1;
+        }
+
+        .tipo-tag {
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            background: var(--nero);
+            color: var(--bianco);
+            font-size: .64rem;
+            padding: 3px 9px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-weight: 500;
+        }
+
+        .prod-body {
+            padding: 13px 15px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+        }
+
+        .prod-nome { font-size: .93rem; font-weight: 600; color: var(--nero); line-height: 1.3; }
+        .prod-desc { font-size: .76rem; color: var(--g2); line-height: 1.4; }
+
+        .prod-extra {
+            font-size: .73rem;
+            color: var(--g3);
+            line-height: 1.6;
+            border-top: 1px solid var(--g5);
+            padding-top: 7px;
+            margin-top: 3px;
+        }
+        .prod-extra strong { color: var(--g2); font-weight: 500; }
+
+        .prod-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 11px;
+        }
+
+        .prod-prezzo { font-size: 1rem; font-weight: 600; color: var(--accent); }
+
+        .btn-add {
+            padding: 7px 13px;
+            background: var(--nero);
+            color: var(--bianco);
+            border: none;
+            border-radius: 5px;
+            font-size: .76rem;
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: .2px;
+            transition: background .2s;
+        }
+        .btn-add:hover { background: var(--accent); }
+
+        .placeholder { grid-column: 1/-1; text-align: center; padding: 48px 0; color: var(--g4); font-size: .88rem; }
+
+        .carr-vuoto { text-align: center; padding: 22px 0; color: var(--g4); font-size: .86rem; }
+
+        .carr-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--g5);
+            font-size: .83rem;
+        }
+        .carr-item:last-of-type { border-bottom: none; }
+
+        .carr-tipo {
+            font-size: .68rem;
+            background: var(--g5);
+            color: var(--g2);
+            padding: 2px 7px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .carr-nome { flex: 1; color: var(--g1); font-weight: 500; line-height: 1.3; }
+        .carr-pr   { color: var(--accent); font-weight: 600; white-space: nowrap; }
+
+        .btn-del {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--g4);
+            font-size: 1rem;
+            line-height: 1;
+            padding: 2px;
+            transition: color .2s;
+        }
+        .btn-del:hover { color: var(--accent); }
+
+        .riga-tot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            margin-top: 4px;
+            border-top: 2px solid var(--nero);
+            font-weight: 600;
+            font-size: .98rem;
+        }
+        .tot-val { color: var(--accent); font-size: 1.1rem; }
+
+        .fg {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .campo { display: flex; flex-direction: column; gap: 5px; }
+
+        .campo label {
+            font-size: .73rem;
+            font-weight: 600;
+            color: var(--g2);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        .campo input,
+        .campo textarea {
+            padding: 10px 12px;
+            border: 1px solid var(--g4);
+            border-radius: 5px;
+            font-size: .88rem;
+            font-family: 'DM Sans', Arial, sans-serif;
+            color: var(--g1);
+            background: var(--bianco);
+            transition: border-color .2s, box-shadow .2s;
+            width: 100%;
+        }
+        .campo input:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: var(--nero);
+            box-shadow: 0 0 0 3px rgba(17,17,17,.07);
+        }
+
+        .campo textarea { height: 76px; resize: vertical; }
+        .c-full { grid-column: 1/-1; }
+
+        .btn-compra {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            background: var(--nero);
+            color: var(--bianco);
+            border: none;
+            border-radius: 6px;
+            font-size: .92rem;
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: .4px;
+            margin-top: 22px;
+            transition: background .2s;
+        }
+        .btn-compra:hover { background: var(--accent); }
+
+        #sezRiepilogo { display: none; }
+
+        .rr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--g5);
+            font-size: .86rem;
+        }
+        .rr:last-child { border-bottom: none; }
+        .rr-k { color: var(--g3); font-size: .74rem; text-transform: uppercase; letter-spacing: .5px; }
+        .rr-v { color: var(--g1); font-weight: 500; text-align: right; max-width: 58%; }
+
+        .ok-banner {
+            background: #eafaf1;
+            border: 1px solid #a9dfbf;
+            color: #1e8449;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: .86rem;
+            font-weight: 500;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        @media (max-width: 860px) {
+            main { grid-template-columns: 1fr; }
+            .col-dx { position: static; }
+        }
+        @media (max-width: 560px) {
+            header { padding: 0 18px; }
+            main   { padding: 22px 14px 40px; }
+            .fg    { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-carrello" onclick="scorriCarrello()">
+            Carrello
+            <span id="badge">0</span>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="col-sx">
+
+            <div class="card">
+                <div class="card-h">Carica catalogo prodotti</div>
+                <div class="upload-box">
+                    <label for="fileInput">
+                        <div class="upload-ico">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                        </div>
+                        <div class="upload-t1">Seleziona il file <strong>prodotti.csv</strong></div>
+                        <div class="upload-t2">Separatore: punto e virgola ( ; ) &nbsp;·&nbsp; Codifica: UTF-8</div>
+                    </label>
+                    <input type="file" id="fileInput" accept=".csv" onchange="leggiCSV(this)"/>
+                </div>
+                <div id="nomeFile"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-h">Prodotti disponibili</div>
+                <div class="filtri" id="filtri" style="display:none"></div>
+                <div id="grid">
+                    <div class="placeholder">Carica un file CSV per visualizzare il catalogo.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-h">Dati acquirente</div>
+                <div class="fg">
+                    <div class="campo">
+                        <label for="nome">Nome *</label>
+                        <input id="nome" type="text" autocomplete="given-name" placeholder="Es. Mario"/>
+                    </div>
+                    <div class="campo">
+                        <label for="cognome">Cognome *</label>
+                        <input id="cognome" type="text" autocomplete="family-name" placeholder="Es. Rossi"/>
+                    </div>
+                    <div class="campo c-full">
+                        <label for="indirizzo">Indirizzo di spedizione</label>
+                        <input id="indirizzo" type="text" placeholder="Via ..., civico" autocomplete="street-address"/>
+                    </div>
+                    <div class="campo">
+                        <label for="citta">Città</label>
+                        <input id="citta" type="text" placeholder="Es. Milano" autocomplete="address-level2"/>
+                    </div>
+                    <div class="campo">
+                        <label for="cap">CAP</label>
+                        <input id="cap" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Es. 20100"/>
+                    </div>
+                    <div class="campo">
+                        <label for="email">E-mail *</label>
+                        <input id="email" type="email" placeholder="esempio@dominio.ext"/>
+                    </div>
+                    <div class="campo">
+                        <label for="telefono">Telefono</label>
+                        <input id="telefono" type="tel" placeholder="Es. 3331234567"/>
+                    </div>
+                    <div class="campo">
+                        <label for="username">Username *</label>
+                        <input id="username" type="text" placeholder="3–16 caratteri"/>
+                    </div>
+                    <div class="campo">
+                        <label for="password">Password *</label>
+                        <input id="password" type="password" placeholder="Min. 8 car., maiusc., num., speciale"/>
+                    </div>
+                    <div class="campo c-full">
+                        <label for="note">Note sulla spedizione</label>
+                        <textarea id="note" placeholder="Citofono, piano, istruzioni per il corriere..."></textarea>
+                    </div>
+                </div>
+                <button class="btn-compra" onclick="acquista()">Conferma ordine e scarica ricevuta PDF</button>
+            </div>
+
+            <div class="card" id="sezRiepilogo">
+                <div class="card-h">Riepilogo ordine</div>
+                <div class="ok-banner" id="okBanner"></div>
+                <div id="riepilogoContenuto"></div>
+            </div>
+
+        </div>
+
+        <div class="col-dx">
+            <div class="card" id="sezCarrello">
+                <div class="card-h">Carrello</div>
+                <div id="carrelloContenuto">
+                    <div class="carr-vuoto">Il carrello è vuoto.</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+    <script>
+
+        let prodotti = [];
+        let carrello = [];
+
+        function leggiCSV(input) {
+            const file = input.files[0];
+            if (!file) return;
+            document.getElementById("nomeFile").textContent = "File caricato: " + file.name;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                prodotti = parseCSV(e.target.result);
+                costruisciFiltri(prodotti);
+                mostraProdotti(prodotti);
+            };
+            reader.readAsText(file, "UTF-8");
+        }
+
+        function parseCSV(testo) {
+            const righe = testo.trim().split("\n");
+            const hdr = righe[0].split(";").map(function(h) { return h.trim(); });
+            const out = [];
+            for (let i = 1; i < righe.length; i++) {
+                const vals = righe[i].split(";");
+                const obj = {};
+                hdr.forEach(function(h, j) { obj[h] = vals[j] ? vals[j].trim() : ""; });
+                out.push(obj);
+            }
+            return out;
+        }
+
+        function costruisciFiltri(lista) {
+            const tipi = ["Tutti"];
+            lista.forEach(function(p) { if (tipi.indexOf(p.tipo) === -1) tipi.push(p.tipo); });
+            const cont = document.getElementById("filtri");
+            cont.innerHTML = "";
+            cont.style.display = "flex";
+            tipi.forEach(function(tipo, idx) {
+                const btn = document.createElement("button");
+                btn.className = "f-btn" + (idx === 0 ? " on" : "");
+                btn.textContent = tipo;
+                btn.onclick = function() {
+                    document.querySelectorAll(".f-btn").forEach(function(b) { b.classList.remove("on"); });
+                    btn.classList.add("on");
+                    mostraProdotti(tipo === "Tutti" ? prodotti : prodotti.filter(function(p) { return p.tipo === tipo; }));
+                };
+                cont.appendChild(btn);
+            });
+        }
+
+        function mostraProdotti(lista) {
+            const grid = document.getElementById("grid");
+            grid.innerHTML = "";
+            if (lista.length === 0) {
+                grid.innerHTML = "<div class='placeholder'>Nessun prodotto per questo filtro.</div>";
+                return;
+            }
+            const campi = ["autore","pagine","marca","modello","anno","cilindrata"];
+            const lbl = { autore:"Autore", pagine:"Pagine", marca:"Marca", modello:"Modello", anno:"Anno", cilindrata:"Cilindrata" };
+
+            lista.forEach(function(p) {
+                const idx = prodotti.indexOf(p);
+                let extra = "";
+                campi.forEach(function(c) { if (p[c]) extra += "<strong>" + lbl[c] + ":</strong> " + p[c] + "<br>"; });
+
+                const div = document.createElement("div");
+                div.className = "prod";
+                div.innerHTML =
+                    "<div class='prod-img'>" +
+                        "<div class='prod-letter'>" + p.tipo.charAt(0) + "</div>" +
+                        "<span class='tipo-tag'>" + p.tipo + "</span>" +
+                    "</div>" +
+                    "<div class='prod-body'>" +
+                        "<div class='prod-nome'>" + p.nome + "</div>" +
+                        "<div class='prod-desc'>" + p.descrizione + "</div>" +
+                        (extra ? "<div class='prod-extra'>" + extra + "</div>" : "") +
+                        "<div class='prod-foot'>" +
+                            "<span class='prod-prezzo'>&euro; " + parseFloat(p.prezzo).toFixed(2) + "</span>" +
+                            "<button class='btn-add' onclick='aggiungi(" + idx + ")'>Aggiungi</button>" +
+                        "</div>" +
+                    "</div>";
+                grid.appendChild(div);
+            });
+        }
+
+        function aggiungi(idx) {
+            carrello.push(prodotti[idx]);
+            aggiornaCarrello();
+        }
+
+        function rimuovi(idx) {
+            carrello.splice(idx, 1);
+            aggiornaCarrello();
+        }
+
+        function aggiornaCarrello() {
+            const cont  = document.getElementById("carrelloContenuto");
+            const badge = document.getElementById("badge");
+
+            badge.style.display = carrello.length > 0 ? "flex" : "none";
+            badge.textContent   = carrello.length;
+
+            if (carrello.length === 0) {
+                cont.innerHTML = "<div class='carr-vuoto'>Il carrello è vuoto.</div>";
+                return;
+            }
+
+            let html = "";
+            let tot = 0;
+            carrello.forEach(function(p, idx) {
+                tot += parseFloat(p.prezzo);
+                html +=
+                    "<div class='carr-item'>" +
+                        "<span class='carr-tipo'>" + p.tipo + "</span>" +
+                        "<span class='carr-nome'>" + p.nome + "</span>" +
+                        "<span class='carr-pr'>&euro;" + parseFloat(p.prezzo).toFixed(2) + "</span>" +
+                        "<button class='btn-del' onclick='rimuovi(" + idx + ")' title='Rimuovi'>&times;</button>" +
+                    "</div>";
+            });
+            html += "<div class='riga-tot'><span>Totale</span><span class='tot-val'>&euro; " + tot.toFixed(2) + "</span></div>";
+            cont.innerHTML = html;
+        }
+
+        function scorriCarrello() {
+            document.getElementById("sezCarrello").scrollIntoView({ behavior: "smooth" });
+        }
+
+        function verifica(p) {
+            let v = true;
+            const reNome = /^[A-Z][a-zA-Zà-ùÀ-Ù''-]+$/;
+            const reCAP  = /^\d{5}$/;
+            const reUser = /^[A-Za-z0-9!@#$%^&*\-_.]{3,16}$/;
+            const rePass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
+            const reMail = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+\.)+([a-zA-Z0-9]{2,})+$/;
+
+            if (!reNome.test(p.nome))     { alert("Il nome deve iniziare con la maiuscola e contenere solo lettere.");                                          v = false; }
+            if (!reNome.test(p.cognome))  { alert("Il cognome deve iniziare con la maiuscola e contenere solo lettere.");                                       v = false; }
+            if (p.cap && !reCAP.test(p.cap))  { alert("Il CAP deve contenere esattamente 5 cifre.");                                                           v = false; }
+            if (!reMail.test(p.email))    { alert("Inserisci un indirizzo e-mail valido (esempio@dominio.ext).");                                               v = false; }
+            if (!reUser.test(p.username)) { alert("Lo username deve avere 3-16 caratteri (lettere, numeri, ! @ # $ % ^ & * - _ .)");                           v = false; }
+            if (!rePass.test(p.password)) { alert("La password deve avere almeno 8 caratteri: una maiuscola, una minuscola, un numero e un carattere speciale."); v = false; }
+            return v;
+        }
+
+        function acquista() {
+            if (carrello.length === 0) { alert("Il carrello è vuoto. Aggiungi almeno un prodotto prima di procedere."); return; }
+
+            const acq = {
+                nome:      document.getElementById("nome").value,
+                cognome:   document.getElementById("cognome").value,
+                indirizzo: document.getElementById("indirizzo").value,
+                citta:     document.getElementById("citta").value,
+                cap:       document.getElementById("cap").value,
+                email:     document.getElementById("email").value,
+                telefono:  document.getElementById("telefono").value,
+                username:  document.getElementById("username").value,
+                password:  document.getElementById("password").value,
+                note:      document.getElementById("note").value
+            };
+
+            if (!verifica(acq)) return;
+            mostraRiepilogo(acq);
+            generaPDF(acq);
+        }
+
+        function mostraRiepilogo(acq) {
+            const sez = document.getElementById("sezRiepilogo");
+            sez.style.display = "block";
+
+            const tot  = carrello.reduce(function(a, p) { return a + parseFloat(p.prezzo); }, 0);
+            const nomi = carrello.map(function(p) { return p.nome; }).join(", ");
+            const oggi = new Date().toLocaleDateString("it-IT");
+
+            document.getElementById("okBanner").textContent = "Ordine confermato! La ricevuta PDF è stata scaricata.";
+
+            const righe = [
+                ["Acquirente",  acq.nome + " " + acq.cognome],
+                ["E-mail",      acq.email],
+                ["Indirizzo",   (acq.indirizzo || "—") + (acq.citta ? ", " + acq.citta : "") + (acq.cap ? " " + acq.cap : "")],
+                ["Prodotti",    nomi],
+                ["Totale",      "€ " + tot.toFixed(2)],
+                ["Data",        oggi]
+            ];
+
+            let html = "";
+            righe.forEach(function(r) {
+                html += "<div class='rr'><span class='rr-k'>" + r[0] + "</span><span class='rr-v'>" + r[1] + "</span></div>";
+            });
+            document.getElementById("riepilogoContenuto").innerHTML = html;
+            sez.scrollIntoView({ behavior: "smooth" });
+        }
+
+        function generaPDF(acq) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const dataStr = new Date().toLocaleDateString("it-IT") + " " + new Date().toLocaleTimeString("it-IT");
+
+            doc.setFillColor(17, 17, 17);
+            doc.rect(0, 0, 210, 34, "F");
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont("helvetica", "bold");
+            doc.text("Shop.it", 14, 16);
+            doc.setFontSize(8);
+            doc.setFont("helvetica", "normal");
+            doc.text("Ricevuta d'acquisto   |   " + dataStr, 14, 26);
+
+            doc.setTextColor(17, 17, 17);
+
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text("Dati acquirente", 14, 48);
+            doc.setDrawColor(220, 220, 220);
+            doc.line(14, 50, 196, 50);
+
+            const campiAcq = [
+                ["Nome",      acq.nome + " " + acq.cognome],
+                ["E-mail",    acq.email],
+                ["Indirizzo", (acq.indirizzo || "—") + (acq.citta ? ", " + acq.citta : "") + (acq.cap ? " " + acq.cap : "")],
+                ["Telefono",  acq.telefono || "—"],
+                ["Username",  acq.username]
+            ];
+
+            let y = 59;
+            campiAcq.forEach(function(r) {
+                doc.setFontSize(8); doc.setFont("helvetica","normal"); doc.setTextColor(120,120,120);
+                doc.text(r[0], 14, y);
+                doc.setTextColor(17,17,17); doc.setFont("helvetica","bold");
+                doc.text(r[1], 52, y);
+                y += 8;
+            });
+
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(17,17,17);
+            doc.text("Prodotti acquistati", 14, y + 10);
+            doc.line(14, y + 12, 196, y + 12);
+            y += 22;
+
+            doc.setFillColor(240, 240, 240);
+            doc.rect(14, y - 5, 182, 8, "F");
+            doc.setFontSize(7.5);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Tipo", 16, y);
+            doc.text("Nome", 55, y);
+            doc.text("Prezzo", 180, y, { align: "right" });
+            y += 9;
+
+            let tot = 0;
+            doc.setTextColor(17, 17, 17);
+            doc.setFont("helvetica", "normal");
+            carrello.forEach(function(p, i) {
+                const pr = parseFloat(p.prezzo);
+                tot += pr;
+                if (i % 2 === 0) { doc.setFillColor(249,249,249); doc.rect(14, y-4, 182, 8, "F"); }
+                doc.setFontSize(8);
+                doc.text(p.tipo, 16, y);
+                doc.text(p.nome, 55, y);
+                doc.text("€ " + pr.toFixed(2), 180, y, { align: "right" });
+                y += 9;
+            });
+
+            doc.setDrawColor(17, 17, 17);
+            doc.line(14, y + 1, 196, y + 1);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(9);
+            doc.text("TOTALE:", 132, y + 9);
+            doc.setTextColor(192, 57, 43);
+            doc.text("€ " + tot.toFixed(2), 180, y + 9, { align: "right" });
+
+            if (acq.note && acq.note.trim() !== "") {
+                doc.setTextColor(120,120,120);
+                doc.setFont("helvetica","normal");
+                doc.setFontSize(7.5);
+                doc.text("Note: " + acq.note, 14, y + 22);
+            }
+
+            doc.setTextColor(180,180,180);
+            doc.setFontSize(7);
+            doc.text("Shop.it  —  Grazie per il tuo acquisto!", 14, 285);
+
+            doc.save("ricevuta_" + acq.cognome + "_" + acq.nome + ".pdf");
+        }
+
+    </script>
+</body>
+</html>
