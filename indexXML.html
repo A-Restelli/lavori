@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anagrafica scolastica</title>
+</head>
+
+<body>
+
+    <h1>Anagrafica scolastica</h1>
+
+    <p>Elenco degli utenti registrati</p>
+
+    <button onclick="caricaDati()">
+        Carica anagrafica
+    </button>
+
+    <p id="risultato">Premi il pulsante per caricare i dati.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Età</th>
+                <th>Classe</th>
+                <th>Città</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabella">
+        </tbody>
+    </table>
+
+    <script>
+        function caricaDati() {
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("GET", "dati.xml", true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+
+                    const xml = xhr.responseXML;
+
+                    if (!xml) {
+                        document.getElementById("risultato").textContent =
+                            "Errore: il file XML non è valido.";
+                        return;
+                    }
+
+                    const utenti = xml.getElementsByTagName("utente");
+                    const tabella = document.getElementById("tabella");
+
+                    tabella.innerHTML = "";
+
+                    for (let i = 0; i < utenti.length; i++) {
+
+                        const utente = utenti[i];
+
+                        const nome =
+                            utente.getElementsByTagName("nome")[0].textContent;
+
+                        const cognome =
+                            utente.getElementsByTagName("cognome")[0].textContent;
+
+                        const eta =
+                            utente.getElementsByTagName("eta")[0].textContent;
+
+                        const sezione =
+                            utente.getElementsByTagName("sezione")[0].textContent;
+
+                        const citta =
+                            utente.getElementsByTagName("citta")[0].textContent;
+
+                        const riga = document.createElement("tr");
+
+                        const valori = [
+                            nome,
+                            cognome,
+                            eta,
+                            sezione,
+                            citta
+                        ];
+
+                        for (let j = 0; j < valori.length; j++) {
+                            const cella = document.createElement("td");
+                            cella.textContent = valori[j];
+                            riga.appendChild(cella);
+                        }
+
+                        tabella.appendChild(riga);
+                    }
+
+                    document.getElementById("risultato").textContent =
+                        "Anagrafica caricata: " + utenti.length + " utenti.";
+
+                } else {
+                    document.getElementById("risultato").textContent =
+                        "Errore nel caricamento del file XML.";
+                }
+            };
+
+            xhr.onerror = function () {
+                document.getElementById("risultato").textContent =
+                    "Errore durante la richiesta al server.";
+            };
+
+            xhr.send();
+        }
+    </script>
+
+</body>
+</html>

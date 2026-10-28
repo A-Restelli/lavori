@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scuola>
+    <classe>
+        <utente>
+            <nome>Antonio</nome>
+            <cognome>Banderas</cognome>
+            <eta>18</eta>
+            <sezione>5A</sezione>
+            <citta>Roma</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Pino</nome>
+            <cognome>Corrias</cognome>
+            <eta>19</eta>
+            <sezione>5B</sezione>
+            <citta>Milano</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Bernardo</nome>
+            <cognome>Bertolucci</cognome>
+            <eta>17</eta>
+            <sezione>4A</sezione>
+            <citta>Torino</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Mauro</nome>
+            <cognome>Bianchi</cognome>
+            <eta>18</eta>
+            <sezione>5A</sezione>
+            <citta>Napoli</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Luca</nome>
+            <cognome>Sparascio</cognome>
+            <eta>19</eta>
+            <sezione>5C</sezione>
+            <citta>Bologna</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Giulia</nome>
+            <cognome>Rossi</cognome>
+            <eta>18</eta>
+            <sezione>5B</sezione>
+            <citta>Firenze</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Marco</nome>
+            <cognome>Verdi</cognome>
+            <eta>17</eta>
+            <sezione>4B</sezione>
+            <citta>Genova</citta>
+        </utente>
+    </classe>
+
+    <classe>
+        <utente>
+            <nome>Sara</nome>
+            <cognome>Conti</cognome>
+            <eta>18</eta>
+            <sezione>5A</sezione>
+            <citta>Palermo</citta>
+        </utente>
+    </classe>
+</scuola>
