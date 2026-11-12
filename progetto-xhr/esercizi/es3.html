@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Es.3 - responseText vs responseXML</title>
+</head>
+<body>
+<h1>responseText vs responseXML</h1>
+<button id="btn-json">Carica JSON</button>
+<button id="btn-xml">Carica XML</button>
+<button id="btn-errore">XML con responseXML su JSON (null)</button>
+<pre id="output"></pre>
+
+<script>
+const output = document.getElementById('output');
+
+// JSON → responseText + JSON.parse
+function caricaJSON() {
+  const xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      const dati = JSON.parse(xhr.responseText); // <-- responseText
+      output.textContent = dati.map(function (s) {
+        return 'JSON: ' + s.nome + ' = ' + s.voto;
+      }).join('\n');
+    }
+  };
+  xhr.open('GET', 'studenti.json', true);
+  xhr.send();
+}
+
+// XML → responseXML (Document)
+function caricaXML() {
+  const xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      let doc = xhr.responseXML; // <-- responseXML
+      if (doc === null) {
+        // Server con Content-Type sbagliato: ripiego su responseText + DOMParser
+        doc = new DOMParser().parseFromString(xhr.responseText, 'application/xml');
+      }
+      const righe = [];
+      doc.querySelectorAll('studente').forEach(function (s) {
+        righe.push('XML: ' + s.querySelector('nome').textContent +
+                   ' = ' + s.querySelector('voto').textContent);
+      });
+      output.textContent = righe.join('\n');
+    }
+  };
+  xhr.open('GET', 'studenti.xml', true);
+  xhr.send();
+}
+
+// Errore comune: responseXML su un file JSON → null
+function provaErrore() {
+  const xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    output.textContent = 'responseXML su un file JSON vale: ' + xhr.responseXML;
+  };
+  xhr.open('GET', 'studenti.json', true);
+  xhr.send();
+}
+
+document.getElementById('btn-json').addEventListener('click', caricaJSON);
+document.getElementById('btn-xml').addEventListener('click', caricaXML);
+document.getElementById('btn-errore').addEventListener('click', provaErrore);
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Es.1 - Prima chiamata AJAX</title>
+</head>
+<body>
+<h1>Test XMLHttpRequest</h1>
+<button id="btn">Carica testo</button>
+<pre id="output"></pre>
+
+<script>
+document.getElementById('btn').addEventListener('click', function () {
+
+  // 1. Creo l'oggetto XMLHttpRequest
+  const xhr = new XMLHttpRequest();
+
+  // 2. Definisco la funzione di callback
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById('output').textContent = xhr.responseText;
+    }
+  };
+
+  // 3. Apro la connessione (metodo, URL, async)
+  xhr.open('GET', 'dati.txt', true);
+
+  // 4. Invio la richiesta
+  xhr.send();
+});
+</script>
+</body>
+</html>

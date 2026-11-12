@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Dashboard Meteo/Utenti</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="intestazione">
+    <h1>Mini Dashboard Meteo/Utenti</h1>
+    <p>Esercitazione su AJAX e <code>XMLHttpRequest</code>: ogni dato di questa pagina arriva da una richiesta XHR.</p>
+  </header>
+
+  <main class="griglia">
+
+    <!-- ========== METEO ========== -->
+    <section class="scheda" aria-labelledby="titolo-meteo">
+      <h2 id="titolo-meteo">Meteo</h2>
+      <p class="nota">API Open-Meteo: prima geocoding della città, poi previsioni (GET con query string).</p>
+
+      <form id="form-meteo" class="riga-form" autocomplete="off">
+        <label for="citta" class="solo-lettori">Nome della città</label>
+        <input id="citta" name="citta" type="text" placeholder="Es. Milano" required maxlength="60">
+        <button type="submit" id="btn-meteo">Cerca</button>
+      </form>
+
+      <p id="stato-meteo" class="stato" role="status"></p>
+      <div id="risultato-meteo"></div>
+    </section>
+
+    <!-- ========== UTENTI ========== -->
+    <section class="scheda" aria-labelledby="titolo-utenti">
+      <h2 id="titolo-utenti">Utenti</h2>
+      <p class="nota">API JSONPlaceholder: elenco con GET, aggiunta con POST (risposta 201).</p>
+
+      <div class="riga-form">
+        <label for="filtro" class="solo-lettori">Cerca utente per nome</label>
+        <input id="filtro" type="search" placeholder="Cerca per nome…" autocomplete="off">
+        <button type="button" id="btn-ricarica">Ricarica</button>
+      </div>
+
+      <p id="stato-utenti" class="stato" role="status"></p>
+      <ul id="lista-utenti" class="lista-utenti"></ul>
+
+      <h3>Aggiungi utente</h3>
+      <form id="form-utente" class="form-colonna" autocomplete="off">
+        <label>Nome
+          <input id="nuovo-nome" type="text" required maxlength="60">
+        </label>
+        <label>Email
+          <input id="nuova-email" type="email" required maxlength="80">
+        </label>
+        <button type="submit" id="btn-aggiungi">Invia con POST</button>
+      </form>
+      <p id="stato-post" class="stato" role="status"></p>
+    </section>
+
+    <!-- ========== LOG XHR ========== -->
+    <section class="scheda larga" aria-labelledby="titolo-log">
+      <h2 id="titolo-log">Console XHR</h2>
+      <p class="nota">Ogni richiesta registra i cambi di <code>readyState</code> e l'esito finale.</p>
+      <ol id="log" class="log"></ol>
+    </section>
+
+  </main>
+
+  <footer class="piede">
+    <p>Progetto didattico &middot; XMLHttpRequest &middot; dati da Open-Meteo e JSONPlaceholder</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

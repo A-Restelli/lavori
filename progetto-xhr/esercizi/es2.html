@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Es.2 - onload, onerror e ontimeout</title>
+</head>
+<body>
+<h1>Callback moderna: onload</h1>
+<button id="btn-ok">Carica dati.txt</button>
+<button id="btn-404">Carica un file inesistente (404)</button>
+<pre id="output"></pre>
+
+<script>
+const output = document.getElementById('output');
+
+function carica(url) {
+  output.textContent = 'Caricamento di ' + url + '…';
+
+  const xhr = new XMLHttpRequest();
+
+  // Eseguita una sola volta, a richiesta completata
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      output.textContent = xhr.responseText;
+    } else {
+      output.textContent = 'Errore HTTP: ' + xhr.status;
+      console.error('Errore HTTP:', xhr.status);
+    }
+  };
+
+  // Problemi di rete (server irraggiungibile, DNS, CORS...)
+  xhr.onerror = function () {
+    output.textContent = 'Errore di rete';
+    console.error('Errore di rete');
+  };
+
+  xhr.ontimeout = function () {
+    output.textContent = 'Timeout della richiesta';
+  };
+
+  xhr.open('GET', url, true);
+  xhr.timeout = 5000;
+  xhr.send();
+}
+
+document.getElementById('btn-ok').addEventListener('click', function () {
+  carica('dati.txt');
+});
+document.getElementById('btn-404').addEventListener('click', function () {
+  carica('non-esiste.txt');
+});
+</script>
+</body>
+</html>

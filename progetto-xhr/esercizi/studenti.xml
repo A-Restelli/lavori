@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<studenti>
+  <studente><nome>Anna</nome><voto>8</voto></studente>
+  <studente><nome>Luca</nome><voto>7</voto></studente>
+</studenti>
