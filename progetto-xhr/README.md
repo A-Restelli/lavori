@@ -60,7 +60,3 @@ progetto-xhr/
 
 - **GitHub**: repository pubblico `progetto-xhr`, push su `main`.
 - **Vercel**: Add New → Project → importare il repository, Framework Preset *Other*, Build Command e Output Directory vuoti.
-
-## Autore
-
-Andrea
